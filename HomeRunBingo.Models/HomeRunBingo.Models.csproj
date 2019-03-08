@@ -46,6 +46,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\BingoCardDomain.cs" />
     <Compile Include="Domain\UserProfileDomain.cs" />
     <Compile Include="Domain\ConfigDomain.cs" />
     <Compile Include="Domain\UserBase.cs" />

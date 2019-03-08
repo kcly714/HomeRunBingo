@@ -116,11 +116,13 @@
     <Compile Include="Interfaces\IAuthenticationService.cs" />
     <Compile Include="Interfaces\ICacheService.cs" />
     <Compile Include="Interfaces\IConfigService.cs" />
+    <Compile Include="Interfaces\IBingoService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\IIdentityExtensions.cs" />
     <Compile Include="Security\SecurityStringExtensions.cs" />
     <Compile Include="ConfigService.cs" />
+    <Compile Include="BingoCardService.cs" />
     <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>
