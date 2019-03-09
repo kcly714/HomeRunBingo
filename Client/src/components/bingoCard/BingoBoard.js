@@ -1,16 +1,112 @@
 import React from 'react'
-
+import SweetAlert from 'react-bootstrap-sweetalert'
 
 class BingoBoard extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             usedNums: [],
+            winner: false,
+            activesq1: false,
+            activesq2: false,
+            activesq3: false,
+            activesq4: false,
+            activesq5: false,
+            activesq6: false,
+            activesq7: false,
+            activesq8: false,
+            activesq9: false,
+            activesq10: false,
+            activesq11: false,
+            activesq12: false,
+            activesq13: false,
+            activesq14: false,
+            activesq15: false,
+            activesq16: false
 
         }
     }
-
-
+    toggleActive1 = () => {
+        this.setState({
+            activesq1: !this.state.activesq1
+        }, () => this.checkWin())
+    }
+    toggleActive2 = () => {
+        this.setState({
+            activesq2: !this.state.activesq2
+        }, () => this.checkWin())
+    }
+    toggleActive3 = () => {
+        this.setState({
+            activesq3: !this.state.activesq3
+        }, () => this.checkWin())
+    }
+    toggleActive4 = () => {
+        this.setState({
+            activesq4: !this.state.activesq4
+        }, () => this.checkWin())
+    }
+    toggleActive5 = () => {
+        this.setState({
+            activesq5: !this.state.activesq5
+        }, () => this.checkWin())
+    }
+    toggleActive6 = () => {
+        this.setState({
+            activesq6: !this.state.activesq6
+        }, () => this.checkWin())
+    }
+    toggleActive7 = () => {
+        this.setState({
+            activesq7: !this.state.activesq7
+        }, () => this.checkWin())
+    }
+    toggleActive8 = () => {
+        this.setState({
+            activesq8: !this.state.activesq8
+        }, () => this.checkWin())
+    }
+    toggleActive9 = () => {
+        this.setState({
+            activesq9: !this.state.activesq9
+        }, () => this.checkWin())
+    }
+    toggleActive10 = () => {
+        this.setState({
+            activesq10: !this.state.activesq10
+        }, () => this.checkWin())
+    }
+    toggleActive11 = () => {
+        this.setState({
+            activesq11: !this.state.activesq11
+        }, () => this.checkWin())
+    }
+    toggleActive12 = () => {
+        this.setState({
+            activesq12: !this.state.activesq12
+        }, () => this.checkWin())
+    }
+    toggleActive13 = () => {
+        this.setState({
+            activesq13: !this.state.activesq13
+        }, () => this.checkWin())
+    }
+    toggleActive14 = () => {
+        this.setState({
+            activesq14: !this.state.activesq14
+        }, () => this.checkWin())
+    }
+    toggleActive15 = () => {
+        this.setState({
+            activesq15: !this.state.activesq15
+        }, () => this.checkWin())
+    }
+    toggleActive16 = () => {
+        this.setState({
+            activesq16: !this.state.activesq16
+        }, () => this.checkWin())
+        console.table(this.state);
+    }
 
     newCard = () => {
         const usedNumsArr = []
@@ -57,8 +153,8 @@ class BingoBoard extends React.Component {
 
     getNewNum = () => {
         return Math.floor(Math.random() * 75);
-
     }
+
 
     anotherCard = () => {
 
@@ -106,49 +202,88 @@ class BingoBoard extends React.Component {
             sq15: usedNamesArr[15],
 
         })
-
+    }
+    checkWin = () => {
+        if ((this.state.activesq1 && this.state.activesq2 && this.state.activesq3 && this.state.activesq4) ||
+            (this.state.activesq5 && this.state.activesq6 && this.state.activesq7 && this.state.activesq8) ||
+            (this.state.activesq9 && this.state.activesq10 && this.state.activesq11 && this.state.activesq12) ||
+            (this.state.activesq13 && this.state.activesq14 && this.state.activesq15 && this.state.activesq16) ||
+            (this.state.activesq1 && this.state.activesq5 && this.state.activesq9 && this.state.activesq13) ||
+            (this.state.activesq2 && this.state.activesq6 && this.state.activesq10 && this.state.activesq14) ||
+            (this.state.activesq3 && this.state.activesq7 && this.state.activesq11 && this.state.activesq15) ||
+            (this.state.activesq4 && this.state.activesq8 && this.state.activesq12 && this.state.activesq16) ||
+            (this.state.activesq1 && this.state.activesq6 && this.state.activesq11 && this.state.activesq16) ||
+            (this.state.activesq4 && this.state.activesq7 && this.state.activesq10 && this.state.activesq13)) {
+            this.setState({
+                winner: true
+            })
+        }
+    }
+    hideAlert = () => {
+        this.setState({
+            winner: false
+        })
     }
     render() {
         console.log('this.state.usednums', this.state.usedNums)
+        const active1 = this.state.activesq1 === true ? "playerCell active" : "playerCell"
+        const active2 = this.state.activesq2 === true ? "playerCell active" : "playerCell"
+        const active3 = this.state.activesq3 === true ? "playerCell active" : "playerCell"
+        const active4 = this.state.activesq4 === true ? "playerCell active" : "playerCell"
+        const active5 = this.state.activesq5 === true ? "playerCell active" : "playerCell"
+        const active6 = this.state.activesq6 === true ? "playerCell active" : "playerCell"
+        const active7 = this.state.activesq7 === true ? "playerCell active" : "playerCell"
+        const active8 = this.state.activesq8 === true ? "playerCell active" : "playerCell"
+        const active9 = this.state.activesq9 === true ? "playerCell active" : "playerCell"
+        const active10 = this.state.activesq10 === true ? "playerCell active" : "playerCell"
+        const active11 = this.state.activesq11 === true ? "playerCell active" : "playerCell"
+        const active12 = this.state.activesq12 === true ? "playerCell active" : "playerCell"
+        const active13 = this.state.activesq13 === true ? "playerCell active" : "playerCell"
+        const active14 = this.state.activesq14 === true ? "playerCell active" : "playerCell"
+        const active15 = this.state.activesq15 === true ? "playerCell active" : "playerCell"
+        const active16 = this.state.activesq16 === true ? "playerCell active" : "playerCell"
+
         return (
             <React.Fragment>
                 <div className='content'>
-                    <div className="triangle"></div>
                     <table className='bingoCard'>
-                        <tr classNam='tableHeader'>
-                            <th className='headerCell'><i className='bb-nyy'></i></th>
+                        <tr className='tableHeader'>
+                            <th className='headerCell'>B</th>
                             <th className='headerCell'>A</th>
                             <th className='headerCell'>T</th>
                             <th className='headerCell'>Z</th>
                         </tr>
-                        <tr classNam='tableRow'>
-                            <td className='playerCell' ref='square0' id='square0'><i className='bb-nyy'></i>{this.state.sq0}</td>
-                            <td className='playerCell' ref='square1' id='square1'>{this.state.sq1}</td>
-                            <td className='playerCell' ref='square2' id='square2'>{this.state.sq2}</td>
-                            <td className='playerCell' ref='square3' id='square3'>{this.state.sq3}</td>
+                        <tr className='tableRow'>
+                            <td onClick={this.toggleActive1} className={active1} ref='square0' id='square0'>{this.state.sq0}</td>
+                            <td onClick={this.toggleActive2} className={active2} ref='square1' id='square1'>{this.state.sq1}</td>
+                            <td onClick={this.toggleActive3} className={active3} ref='square2' id='square2'>{this.state.sq2}</td>
+                            <td onClick={this.toggleActive4} className={active4} ref='square3' id='square3'>{this.state.sq3}</td>
                         </tr>
-                        <tr classNam='tableRow'>
-                            <td className='playerCell' ref='square4' id='square4'>{this.state.sq4}</td>
-                            <td className='playerCell' ref='square5' id='square5'>{this.state.sq5}</td>
-                            <td className='playerCell' ref='square6' id='square6'>{this.state.sq6}</td>
-                            <td className='playerCell' ref='square7' id='square7'>{this.state.sq7}</td>
+                        <tr className='tableRow'>
+                            <td onClick={this.toggleActive5} className={active5} ref='square4' id='square4'>{this.state.sq4}</td>
+                            <td onClick={this.toggleActive6} className={active6} ref='square5' id='square5'>{this.state.sq5}</td>
+                            <td onClick={this.toggleActive7} className={active7} ref='square6' id='square6'>{this.state.sq6}</td>
+                            <td onClick={this.toggleActive8} className={active8} ref='square7' id='square7'>{this.state.sq7}</td>
                         </tr>
-                        <tr classNam='tableRow'>
-                            <td className='playerCell' ref='square8' id='square8'>{this.state.sq8}</td>
-                            <td className='playerCell' ref='square9' id='square9'>{this.state.sq9}</td>
-                            <td className='playerCell' ref='square10' id='square10'>{this.state.sq10}</td>
-                            <td className='playerCell' ref='square11' id='square11'>{this.state.sq11}</td>
+                        <tr className='tableRow'>
+                            <td onClick={this.toggleActive9} className={active9} ref='square8' id='square8'>{this.state.sq8}</td>
+                            <td onClick={this.toggleActive10} className={active10} ref='square9' id='square9'>{this.state.sq9}</td>
+                            <td onClick={this.toggleActive11} className={active11} ref='square10' id='square10'>{this.state.sq10}</td>
+                            <td onClick={this.toggleActive12} className={active12} ref='square11' id='square11'>{this.state.sq11}</td>
                         </tr>
-                        <tr classNam='tableRow'>
-                            <td className='playerCell' ref='square12' id='square12'>{this.state.sq12}</td>
-                            <td className='playerCell' ref='square13' id='square13'>{this.state.sq13}</td>
-                            <td className='playerCell' ref='square14' id='square14'>{this.state.sq14}</td>
-                            <td className='playerCell' ref='square15' id='square15'>{this.state.sq15}</td>
+                        <tr className='tableRow'>
+                            <td onClick={this.toggleActive13} className={active13} ref='square12' id='square12'>{this.state.sq12}</td>
+                            <td onClick={this.toggleActive14} className={active14} ref='square13' id='square13'>{this.state.sq13}</td>
+                            <td onClick={this.toggleActive15} className={active15} ref='square14' id='square14'>{this.state.sq14}</td>
+                            <td onClick={this.toggleActive16} className={active16} ref='square15' id='square15'>{this.state.sq15}</td>
                         </tr>
                     </table>
 
                     <button type='btn' className='refreshBtn' onClick={() => this.anotherCard()}>Refresh My Card</button>
                 </div>
+                <SweetAlert success title="Congratulation!" show={this.state.winner} onConfirm={this.hideAlert}>
+                    You won!
+                </SweetAlert>
             </React.Fragment>
         )
     }

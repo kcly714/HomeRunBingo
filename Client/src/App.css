@@ -10,6 +10,7 @@
 
 
 
+
 body{
 background-image: url('https://pickywallpapers.com/img/2018/12/baseball-field-beautiful-sunset-wallpaper-64-71-hd-wallpapers.jpg');
 background-size: 100%;
@@ -45,6 +46,9 @@ p a {
   text-align: center;
   font-weight: 600;
   font-size: 15pt;
+}
+.active {
+  background:red;
 }
 
 .bingoCard {
