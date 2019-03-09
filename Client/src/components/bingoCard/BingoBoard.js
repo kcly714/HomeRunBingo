@@ -6,6 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { white } from 'ansi-colors';
 
 
 class BingoBoard extends React.Component {
@@ -14,7 +15,8 @@ class BingoBoard extends React.Component {
         this.state = {
             usedNums: [],
             players: [],
-            usedPlayers: []
+            usedPlayers: [],
+            pageRender: false
 
         }
         HR_Leaders.HRLeaders(this.onSuccess, this.onError)
@@ -90,6 +92,9 @@ class BingoBoard extends React.Component {
 
         }
         this.setState({
+            usedPlayers: usedNamesArr
+        })
+        this.setState({
             usedNums: [
                 usedNumsArr
             ],
@@ -120,7 +125,7 @@ class BingoBoard extends React.Component {
     }
 
     anotherCard = () => {
-
+        this.setState({ pageRender: true })
         this.newCard();
     }
 
@@ -143,6 +148,9 @@ class BingoBoard extends React.Component {
             }
         }
         this.setState({
+            usedPlayers: usedNamesArr
+        })
+        this.setState({
             usedNums: [
                 usedNumsArr
             ],
@@ -164,9 +172,7 @@ class BingoBoard extends React.Component {
             sq15: usedNamesArr[15],
 
         })
-        this.setState({
-            usedPlayers: usedNamesArr
-        })
+
 
 
     }
@@ -175,27 +181,11 @@ class BingoBoard extends React.Component {
             <React.Fragment>
                 <div className='content'>
                     <div className="triangle"></div>
-                    <div className="row">
-                        {this.state.usedPlayers === "" ?
-                            <Paper >
-                                <Table>
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell >Player</TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {this.state.usedPlayers.map((row, id) => (
-                                            <TableRow key={id}>
-                                                <TableCell >{row}</TableCell>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-                            </Paper>
-                            : ""}
+
+
+                    <div className="col-4">
                         <table className='bingoCard'>
-                            <tr classNam='tableHeader'>
+                            <tr className='tableHeader'>
                                 <th className='headerCell'>B</th>
                                 <th className='headerCell'>A</th>
                                 <th className='headerCell'>T</th>
@@ -229,6 +219,9 @@ class BingoBoard extends React.Component {
                     </div>
 
                     <button type='btn' className='refreshBtn btn-primary mt-3' onClick={() => this.anotherCard()}>Refresh My Card</button>
+
+
+
                 </div>
             </React.Fragment>
         )
