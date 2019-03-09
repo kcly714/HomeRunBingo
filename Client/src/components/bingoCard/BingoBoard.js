@@ -18,7 +18,7 @@ class BingoBoard extends React.Component {
         for (var i = 0; usedNumsArr.length < 16; i++) {
             var newNum;
 
-            newNum = (Math.floor(Math.random() * 35) + 1);
+            newNum = (Math.floor(Math.random() * 24) + 1);
             this.setState({
                 usedNums: {
                     ...this.state.usedNums, newNum
@@ -71,7 +71,7 @@ class BingoBoard extends React.Component {
         for (var i = 0; usedNumsArr.length < 16; i++) {
             var newNum;
 
-            newNum = (Math.floor(Math.random() * 35) + 1);
+            newNum = (Math.floor(Math.random() * 24) + 1);
             this.setState({
                 usedNums: {
                     ...this.state.usedNums, newNum
@@ -113,7 +113,7 @@ class BingoBoard extends React.Component {
         return (
             <React.Fragment>
                 <div className='content'>
-                    <div className="triangle"></div>
+                    {/* <div className="triangle"></div> */}
                     <table className='bingoCard'>
                         <tr classNam='tableHeader'>
                             <th className='headerCell'><i className='bb-nyy'></i></th>
@@ -182,17 +182,17 @@ const players = [
     { "id": 22, "name": "Edwin Encarnacion", "pic": '' },
     { "id": 23, "name": "Paul Goldschmidt", "pic": '' },
     { "id": 24, "name": "Charlie Blackmon", "pic": '' },
-    { "id": 25, "name": "Micheal Conforto", "pic": '' },
-    { "id": 26, "name": "Carlos Correa", "pic": '' },
-    { "id": 27, "name": "Aaron Hicks", "pic": '' },
-    { "id": 28, "name": "Justin Upton", "pic": '' },
-    { "id": 29, "name": "Travis Shaw", "pic": '' },
-    { "id": 30, "name": "Matt Olson", "pic": '' },
-    { "id": 31, "name": "Miguel Andujar", "pic": '' },
-    { "id": 32, "name": "Didi Gregorius", "pic": '' },
-    { "id": 33, "name": "Kyle Schwarber", "pic": '' },
-    { "id": 34, "name": "Cody Bellinger", "pic": '' },
-    { "id": 35, "name": "Ronald Acuna", "pic": '' },
-    { "id": 36, "name": "Joc Pederson", "pic": '' },
-    { "id": 37, "name": "Nolan Arenado", "pic": '' },
+    // { "id": 25, "name": "Micheal Conforto", "pic": '' },
+    // { "id": 26, "name": "Carlos Correa", "pic": '' },
+    // { "id": 27, "name": "Aaron Hicks", "pic": '' },
+    // { "id": 28, "name": "Justin Upton", "pic": '' },
+    // { "id": 29, "name": "Travis Shaw", "pic": '' },
+    // { "id": 30, "name": "Matt Olson", "pic": '' },
+    // { "id": 31, "name": "Miguel Andujar", "pic": '' },
+    // { "id": 32, "name": "Didi Gregorius", "pic": '' },
+    // { "id": 33, "name": "Kyle Schwarber", "pic": '' },
+    // { "id": 34, "name": "Cody Bellinger", "pic": '' },
+    // { "id": 35, "name": "Ronald Acuna", "pic": '' },
+    // { "id": 36, "name": "Joc Pederson", "pic": '' },
+    // { "id": 37, "name": "Nolan Arenado", "pic": '' },
 ]
