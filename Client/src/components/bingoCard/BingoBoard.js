@@ -30,7 +30,7 @@ class BingoBoard extends React.Component {
             activesq13: false,
             activesq14: false,
             activesq15: false,
-            activesq16: false
+            activesq16: false,
             players: [],
             usedPlayers: [],
             pageRender: false
