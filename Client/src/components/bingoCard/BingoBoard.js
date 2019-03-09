@@ -1,4 +1,12 @@
 import React from 'react'
+import HR_Leaders from '../../axios/HR_Leaders'
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import { white } from 'ansi-colors';
 import SweetAlert from 'react-bootstrap-sweetalert'
 
 class BingoBoard extends React.Component {
@@ -23,6 +31,9 @@ class BingoBoard extends React.Component {
             activesq14: false,
             activesq15: false,
             activesq16: false
+            players: [],
+            usedPlayers: [],
+            pageRender: false
 
         }
     }
@@ -100,6 +111,8 @@ class BingoBoard extends React.Component {
         this.setState({
             activesq15: !this.state.activesq15
         }, () => this.checkWin())
+        HR_Leaders.HRLeaders(this.onSuccess, this.onError)
+
     }
     toggleActive16 = () => {
         this.setState({
@@ -107,14 +120,63 @@ class BingoBoard extends React.Component {
         }, () => this.checkWin())
         console.table(this.state);
     }
+    onSuccess = resp => {
+        console.log("Success Get All", resp)
+        let fullName = ""
+        // let team = ""
+        // let homers;
+        // let rank;
+        for (let i = 0; i < resp.data.leagues[0].hitting.home_runs.players.length; i++) {
+            fullName = resp.data.leagues[0].hitting.home_runs.players[i].preferred_name + " " + resp.data.leagues[0].hitting.home_runs.players[i].last_name
+
+            // resp.data.leagues[0].hitting.home_runs.players[i].status === "FA" ? team = "Free Agent" : team = resp.data.leagues[0].hitting.home_runs.players[i].team.abbr
+
+            // homers = resp.data.leagues[0].hitting.home_runs.players[i].hr
+
+            let newNameArray = this.state.players.slice()
+            newNameArray.push(fullName)
+            this.setState({
+                players: newNameArray
+            })
+
+            // let newTeamArray = this.state.Team.slice()
+            // newTeamArray.push(team)
+            // this.setState({
+            //     Team: newTeamArray
+            // })
+
+            // let newHomeRunArray = this.state.Homers.slice()
+            // newHomeRunArray.push(homers)
+            // this.setState({
+            //     Homers: newHomeRunArray
+            // })
+            // let newRankArray = this.state.Rank.slice()
+            // newRankArray.push(rank = i + 1)
+            // this.setState({
+            //     Rank: newRankArray
+            // })
+
+
+        }
+        this.setState({ players: this.state.players })
+
+
+    }
+    onError = resp => {
+        console.log("Failed to get all", resp)
+    }
+
+
 
     newCard = () => {
+        this.setState({ players: this.state.players })
+
         const usedNumsArr = []
         const usedNamesArr = []
         for (var i = 0; usedNumsArr.length < 16; i++) {
             var newNum;
 
-            newNum = (Math.floor(Math.random() * 35) + 1);
+            newNum = (Math.floor(Math.random() * 24) + 1);
             this.setState({
                 usedNums: {
                     ...this.state.usedNums, newNum
@@ -122,11 +184,14 @@ class BingoBoard extends React.Component {
             })
             if (usedNumsArr.indexOf(newNum) === -1) {
                 usedNumsArr.push(newNum);
-                usedNamesArr.push(players[newNum].name)
+                usedNamesArr.push(this.state.players[newNum])
                 // console.log(`the number ${newNum} has not been used so we will add it to our array`);
             }
 
         }
+        this.setState({
+            usedPlayers: usedNamesArr
+        })
         this.setState({
             usedNums: [
                 usedNumsArr
@@ -149,6 +214,7 @@ class BingoBoard extends React.Component {
             sq15: usedNamesArr[15],
 
         })
+
     }
 
     getNewNum = () => {
@@ -157,17 +223,17 @@ class BingoBoard extends React.Component {
 
 
     anotherCard = () => {
-
+        this.setState({ pageRender: true })
         this.newCard();
     }
 
     componentDidMount() {
         const usedNumsArr = []
         const usedNamesArr = []
-        for (var i = 0; usedNumsArr.length < 16; i++) {
+        for (var i = 0; usedNumsArr.length < 24; i++) {
             var newNum;
 
-            newNum = (Math.floor(Math.random() * 35) + 1);
+            newNum = (Math.floor(Math.random() * 24) + 1);
             this.setState({
                 usedNums: {
                     ...this.state.usedNums, newNum
@@ -175,11 +241,13 @@ class BingoBoard extends React.Component {
             })
             if (usedNumsArr.indexOf(newNum) === -1) {
                 usedNumsArr.push(newNum);
-                usedNamesArr.push(players[newNum].name)
+                usedNamesArr.push(this.state.players[newNum])
                 // console.log(`the number ${newNum} has not been used so we will add it to our array`);
             }
-
         }
+        this.setState({
+            usedPlayers: usedNamesArr
+        })
         this.setState({
             usedNums: [
                 usedNumsArr
@@ -202,6 +270,9 @@ class BingoBoard extends React.Component {
             sq15: usedNamesArr[15],
 
         })
+
+
+
     }
     checkWin = () => {
         if ((this.state.activesq1 && this.state.activesq2 && this.state.activesq3 && this.state.activesq4) ||
@@ -279,7 +350,6 @@ class BingoBoard extends React.Component {
                         </tr>
                     </table>
 
-                    <button type='btn' className='refreshBtn' onClick={() => this.anotherCard()}>Refresh My Card</button>
                 </div>
                 <SweetAlert success title="Congratulation!" show={this.state.winner} onConfirm={this.hideAlert}>
                     You won!
@@ -291,43 +361,45 @@ class BingoBoard extends React.Component {
 
 export default BingoBoard
 
-const players = [
-    { "id": 0, "name": "Mike Trout", "pic": 'https://www.thesportsdb.com/images/media/player/thumb/mhvrxw1542540970.jpg' },
-    { "id": 1, "name": "JD Martinex", "pic": '' },
-    { "id": 2, "name": "Bryce Harper", "pic": '' },
-    { "id": 3, "name": "Anthony Rizzo", "pic": '' },
-    { "id": 4, "name": "Kris Bryant", "pic": '' },
-    { "id": 5, "name": "Joey Gallo", "pic": '' },
-    { "id": 6, "name": "Mookie Betts", "pic": '' },
-    { "id": 7, "name": "Freddie Freeman", "pic": '' },
-    { "id": 8, "name": "Khris Davis", "pic": '' },
-    { "id": 9, "name": "Mike Stanton", "pic": '' },
-    { "id": 10, "name": "Aaron Judge", "pic": '' },
-    { "id": 11, "name": "Francisco Lindor", "pic": '' },
-    { "id": 12, "name": "Manny Machado", "pic": '' },
-    { "id": 13, "name": "Jose Ramirez", "pic": '' },
-    { "id": 14, "name": "Matt Carpenter", "pic": '' },
-    { "id": 15, "name": "Christian Yelich", "pic": '' },
-    { "id": 16, "name": "Max Muncy", "pic": '' },
-    { "id": 17, "name": "Jesus Aguilar", "pic": '' },
-    { "id": 18, "name": "Javier Baez", "pic": '' },
-    { "id": 19, "name": "Rhys Hoskins", "pic": '' },
-    { "id": 20, "name": "Eugenio Suarez", "pic": '' },
-    { "id": 21, "name": "Alex Bregman", "pic": '' },
-    { "id": 22, "name": "Edwin Encarnacion", "pic": '' },
-    { "id": 23, "name": "Paul Goldschmidt", "pic": '' },
-    { "id": 24, "name": "Charlie Blackmon", "pic": '' },
-    { "id": 25, "name": "Micheal Conforto", "pic": '' },
-    { "id": 26, "name": "Carlos Correa", "pic": '' },
-    { "id": 27, "name": "Aaron Hicks", "pic": '' },
-    { "id": 28, "name": "Justin Upton", "pic": '' },
-    { "id": 29, "name": "Travis Shaw", "pic": '' },
-    { "id": 30, "name": "Matt Olson", "pic": '' },
-    { "id": 31, "name": "Miguel Andujar", "pic": '' },
-    { "id": 32, "name": "Didi Gregorius", "pic": '' },
-    { "id": 33, "name": "Kyle Schwarber", "pic": '' },
-    { "id": 34, "name": "Cody Bellinger", "pic": '' },
-    { "id": 35, "name": "Ronald Acuna", "pic": '' },
-    { "id": 36, "name": "Joc Pederson", "pic": '' },
-    { "id": 37, "name": "Nolan Arenado", "pic": '' },
-]
+// const players = [
+//     { "id": 0, "name": "Mike Trout", "pic": 'https://www.thesportsdb.com/images/media/player/thumb/mhvrxw1542540970.jpg' },
+//     { "id": 1, "name": "JD Martinez", "pic": '' },
+//     { "id": 2, "name": "Bryce Harper", "pic": '' },
+//     { "id": 3, "name": "Anthony Rizzo", "pic": '' },
+//     { "id": 4, "name": "Kris Bryant", "pic": '' },
+//     { "id": 5, "name": "Joey Gallo", "pic": '' },
+//     { "id": 6, "name": "Mookie Betts", "pic": '' },
+//     { "id": 7, "name": "Freddie Freeman", "pic": '' },
+//     { "id": 8, "name": "Khris Davis", "pic": '' },
+//     { "id": 9, "name": "Mike Stanton", "pic": '' },
+//     { "id": 10, "name": "Aaron Judge", "pic": '' },
+//     { "id": 11, "name": "Francisco Lindor", "pic": '' },
+//     { "id": 12, "name": "Manny Machado", "pic": '' },
+//     { "id": 13, "name": "Jose Ramirez", "pic": '' },
+//     { "id": 14, "name": "Matt Carpenter", "pic": '' },
+//     { "id": 15, "name": "Christian Yelich", "pic": '' },
+//     { "id": 16, "name": "Max Muncy", "pic": '' },
+//     { "id": 17, "name": "Jesus Aguilar", "pic": '' },
+//     { "id": 18, "name": "Javier Baez", "pic": '' },
+//     { "id": 19, "name": "Rhys Hoskins", "pic": '' },
+//     { "id": 20, "name": "Eugenio Suarez", "pic": '' },
+//     { "id": 21, "name": "Alex Bregman", "pic": '' },
+//     { "id": 22, "name": "Edwin Encarnacion", "pic": '' },
+//     { "id": 23, "name": "Paul Goldschmidt", "pic": '' },
+//     { "id": 24, "name": "Charlie Blackmon", "pic": '' },
+//     { "id": 25, "name": "Micheal Conforto", "pic": '' },
+//     { "id": 26, "name": "Carlos Correa", "pic": '' },
+//     { "id": 27, "name": "Aaron Hicks", "pic": '' },
+//     { "id": 28, "name": "Justin Upton", "pic": '' },
+//     { "id": 29, "name": "Travis Shaw", "pic": '' },
+//     { "id": 30, "name": "Matt Olson", "pic": '' },
+//     { "id": 31, "name": "Miguel Andujar", "pic": '' },
+//     { "id": 32, "name": "Didi Gregorius", "pic": '' },
+//     { "id": 33, "name": "Kyle Schwarber", "pic": '' },
+//     { "id": 34, "name": "Cody Bellinger", "pic": '' },
+//     { "id": 35, "name": "Ronald Acuna", "pic": '' },
+//     { "id": 36, "name": "Joc Pederson", "pic": '' },
+//     { "id": 37, "name": "Nolan Arenado", "pic": '' },
+//     { "id": 38, "name": "C.J. Chron", "pic": '' },
+
+// ]
