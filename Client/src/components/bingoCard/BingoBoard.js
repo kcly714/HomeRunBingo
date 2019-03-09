@@ -1,4 +1,5 @@
 import React from 'react'
+import CardService from '../../services/CardService'
 
 
 class BingoBoard extends React.Component {
@@ -6,15 +7,43 @@ class BingoBoard extends React.Component {
         super(props)
         this.state = {
             usedNums: [],
+            active: false,
+
 
         }
+        this.onToggle = this.onToggle.bind(this)
     }
 
+    onCardSubmit = event => {
+        CardService.create(this.state, this.onCardSubSuccess, this.onCardSubError)
+    }
 
+    onCardSubSuccess = evt => {
+        console.log('we submitted our card')
+    }
+
+    onCardSubError = err => {
+        console.log('card submission error ')
+    }
+
+    onToggle = event => {
+        console.log('eeeeeeee', event)
+        // const targ = event.target.id
+        const reffs = this.refs
+        console.log('*************', reffs)
+        // console.log('##################', targ)
+        const toggleState = this.state.active
+        this.setState({
+            active: !toggleState
+        })
+    }
 
     newCard = () => {
         const usedNumsArr = []
         const usedNamesArr = []
+        const reff = this.refs.square0.textContent
+
+        console.log('this ref', reff)
         for (var i = 0; usedNumsArr.length < 16; i++) {
             var newNum;
 
@@ -22,7 +51,8 @@ class BingoBoard extends React.Component {
             this.setState({
                 usedNums: {
                     ...this.state.usedNums, newNum
-                }
+                },
+                [reff]: reff
             })
             if (usedNumsArr.indexOf(newNum) === -1) {
                 usedNumsArr.push(newNum);
@@ -109,26 +139,26 @@ class BingoBoard extends React.Component {
 
     }
     render() {
-        console.log('this.state.usednums', this.state.usedNums)
+        console.log('this.state.usednums', this.state)
         return (
             <React.Fragment>
                 <div className='content'>
                     {/* <div className="triangle"></div> */}
                     <table className='bingoCard'>
                         <tr classNam='tableHeader'>
-                            <th className='headerCell'><i className='bb-nyy'></i></th>
-                            <th className='headerCell'>A</th>
+                            <th className='headerCell'>B</th>
+                            <th className='headerCell'>U</th>
+                            <th className='headerCell'>N</th>
                             <th className='headerCell'>T</th>
-                            <th className='headerCell'>Z</th>
                         </tr>
                         <tr classNam='tableRow'>
-                            <td className='playerCell' ref='square0' id='square0'><i className='bb-nyy'></i>{this.state.sq0}</td>
-                            <td className='playerCell' ref='square1' id='square1'>{this.state.sq1}</td>
+                            <td className={this.state.active ? 'playerCellActive' : 'playerCell'} ref='square0' id='square0' onClick={() => this.onToggle()}>{this.state.sq0}</td>
+                            <td className='playerCell' ref='square1' id='square1' onClick={() => this.onToggle()}>{this.state.sq1}</td>
                             <td className='playerCell' ref='square2' id='square2'>{this.state.sq2}</td>
                             <td className='playerCell' ref='square3' id='square3'>{this.state.sq3}</td>
                         </tr>
                         <tr classNam='tableRow'>
-                            <td className='playerCell' ref='square4' id='square4'>{this.state.sq4}</td>
+                            <td className={this.state.active ? 'playerCellActive' : 'playerCell'} ref='square4' id='square4' onClick={() => this.onToggle()}>{this.state.sq4}</td>
                             <td className='playerCell' ref='square5' id='square5'>{this.state.sq5}</td>
                             <td className='playerCell' ref='square6' id='square6'>{this.state.sq6}</td>
                             <td className='playerCell' ref='square7' id='square7'>{this.state.sq7}</td>
@@ -146,8 +176,9 @@ class BingoBoard extends React.Component {
                             <td className='playerCell' ref='square15' id='square15'>{this.state.sq15}</td>
                         </tr>
                     </table>
-
-                    <button type='btn' className='refreshBtn' onClick={() => this.anotherCard()}>Refresh My Card</button>
+                    <button type='btn' className='button' onClick={() => this.onCardSubmit()}>Submit My Card</button>
+                    <hr />
+                    <button type='btn' className='myButton' onClick={() => this.anotherCard()}>Refresh My Card</button>
                 </div>
             </React.Fragment>
         )

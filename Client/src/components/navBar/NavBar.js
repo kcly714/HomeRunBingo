@@ -7,8 +7,8 @@ class NavBar extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            email: '',
-            password: '',
+            Email: '',
+            Password: '',
         }
     }
 
@@ -24,8 +24,8 @@ class NavBar extends React.Component {
     onRegisterClick = event => {
 
     }
-    onLoginClick = event => {
-        UserService.create(event, this.onLoginSuccess, this.onLoginError)
+    onLoginClick = data => {
+        UserService.create(this.state, this.onLoginSuccess, this.onLoginError)
     }
 
     onLoginSuccess = event => {
@@ -40,9 +40,9 @@ class NavBar extends React.Component {
             <React.Fragment>
                 <div className='topnav'>
                     <nav>
-                        <TextInput type='Email' onChange={this.onChange} lable='Email' placeholder='johndoe@email.com' value={this.state.email} name='email' />
-                        <TextInput type='Password' onChange={this.onChange} lable='Password' placeholder='password123' value={this.state.password} name='password' />
-                        <button type='button' className='login' onClick={this.onLoginClick}> Login </button>
+                        <TextInput type='Email' onChange={this.onChange} lable='Email' placeholder='johndoe@email.com' value={this.state.email} name='Email' />
+                        <TextInput type='Password' onChange={this.onChange} lable='Password' placeholder='password123' value={this.state.password} name='Password' />
+                        <button type='button' className='login' onClick={() => this.onLoginClick()}> Login </button>
                         {/* <button type='button' className='register' onClick={this.onRegisterClick}> Register </button> */}
                     </nav>
                 </div>

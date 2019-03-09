@@ -1,6 +1,7 @@
 import React from 'react'
 import NavBar from '../navBar/NavBar';
 import BingoBoard from '../bingoCard/BingoBoard';
+import { Row, Column } from 'bootstrap'
 
 
 class Layout extends React.Component {
@@ -12,12 +13,18 @@ class Layout extends React.Component {
     render() {
         return (
             <div className="layout-wrapper">
-                <div className='row topnav column'>
-                    <NavBar />
-                </div>
-                <div className='row bingoCard column'>
-                    <BingoBoard />
-                </div>
+                <Row>
+                    <div className='row topnav column'>
+                        <NavBar />
+                    </div>
+
+                </Row>
+                <Row>
+
+                    <div className='row bingoCard column'>
+                        <BingoBoard />
+                    </div>
+                </Row>
             </div>
         )
 
