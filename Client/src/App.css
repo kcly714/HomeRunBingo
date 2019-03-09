@@ -71,6 +71,9 @@ p a {
   font-weight: 600;
   font-size: 15pt;
 }
+.active {
+  background:red;
+}
 
 .bingoCard {
   margin: 0 auto;
