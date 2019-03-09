@@ -38,15 +38,15 @@ class NavBar extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div className='topnav'>
-                    <nav>
-                        <TextInput type='Email' onChange={this.onChange} lable='Email' placeholder='johndoe@email.com' value={this.state.email} name='Email' />
-                        <TextInput type='Password' onChange={this.onChange} lable='Password' placeholder='password123' value={this.state.password} name='Password' />
-                        <button type='button' className='login' onClick={() => this.onLoginClick()}> Login </button>
-                        {/* <button type='button' className='register' onClick={this.onRegisterClick}> Register </button> */}
-                    </nav>
-                </div>
+                <nav className="navbar navbar-light bg-light">
+                    <form className="form-inline">
+                        <input type='Email' onChange={this.onChange} lable='Email' placeholder='johndoe@email.com' value={this.state.email} name='Email' />
+                        <input type='Password' onChange={this.onChange} lable='Password' placeholder='password123' value={this.state.password} name='Password' />
+                        <button className="btn btn-outline-success my-2 my-sm-0" type="button" onClick={() => this.onLoginClick()}>Login</button>
+                    </form>
+                </nav>
             </React.Fragment>
+
         )
     }
 }

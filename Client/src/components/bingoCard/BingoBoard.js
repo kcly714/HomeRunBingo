@@ -1,5 +1,6 @@
 import React from 'react'
 import CardService from '../../services/CardService'
+import Button from 'bootstrap'
 
 
 class BingoBoard extends React.Component {
@@ -176,9 +177,9 @@ class BingoBoard extends React.Component {
                             <td className='playerCell' ref='square15' id='square15'>{this.state.sq15}</td>
                         </tr>
                     </table>
-                    <button type='btn' className='button' onClick={() => this.onCardSubmit()}>Submit My Card</button>
+                    <button type='button' className='btn btn-primary' onClick={() => this.onCardSubmit()}>Submit My Card</button>
                     <hr />
-                    <button type='btn' className='myButton' onClick={() => this.anotherCard()}>Refresh My Card</button>
+                    <button type='button' className='btn btn-danger' onClick={() => this.anotherCard()}>Refresh My Card</button>
                 </div>
             </React.Fragment>
         )

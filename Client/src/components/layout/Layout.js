@@ -12,20 +12,17 @@ class Layout extends React.Component {
 
     render() {
         return (
-            <div className="layout-wrapper">
-                <Row>
-                    <div className='row topnav column'>
+            <React.Fragment>
+
+                <div className='container'>
+                    <div className='row col navigation'>
                         <NavBar />
                     </div>
-
-                </Row>
-                <Row>
-
-                    <div className='row bingoCard column'>
-                        <BingoBoard />
-                    </div>
-                </Row>
-            </div>
+                </div>
+                <div className='container'>
+                    <BingoBoard />
+                </div>
+            </React.Fragment>
         )
 
     }

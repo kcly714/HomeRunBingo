@@ -30,7 +30,7 @@
 }
 
 .navBar{
-  display: inline-block;
+  display: block;
   position: fixed;
 
 }
