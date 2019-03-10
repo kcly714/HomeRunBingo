@@ -1,20 +1,14 @@
 import React from 'react'
 import HR_Leaders from '../../axios/HR_Leaders'
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import CardService from '../../services/CardService'
 import { white } from 'ansi-colors';
 import SweetAlert from 'react-bootstrap-sweetalert'
-import CardService from '../../services/CardService'
-import Button from 'bootstrap'
 
 class BingoBoard extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            card: 'myCard',
             usedNums: [],
             winner: false,
             activesq1: false,
@@ -37,9 +31,9 @@ class BingoBoard extends React.Component {
             usedPlayers: [],
             pageRender: false
 
-
         }
-        this.onToggle = this.onToggle.bind(this)
+        HR_Leaders.HRLeaders(this.onSuccess, this.onError)
+
     }
     toggleActive1 = () => {
         this.setState({
@@ -132,13 +126,7 @@ class BingoBoard extends React.Component {
         // let rank;
         for (let i = 0; i < resp.data.leagues[0].hitting.home_runs.players.length; i++) {
             fullName = resp.data.leagues[0].hitting.home_runs.players[i].preferred_name + " " + resp.data.leagues[0].hitting.home_runs.players[i].last_name
-    onCardSubmit = event => {
-        CardService.create(this.state, this.onCardSubSuccess, this.onCardSubError)
-    }
 
-    onCardSubSuccess = evt => {
-        console.log('we submitted our card')
-    }
             // resp.data.leagues[0].hitting.home_runs.players[i].status === "FA" ? team = "Free Agent" : team = resp.data.leagues[0].hitting.home_runs.players[i].team.abbr
 
             // homers = resp.data.leagues[0].hitting.home_runs.players[i].hr
@@ -178,21 +166,11 @@ class BingoBoard extends React.Component {
 
 
 
-    onCardSubError = err => {
-        console.log('card submission error ')
-    }
-
-    
-    }
-
     newCard = () => {
         this.setState({ players: this.state.players })
 
         const usedNumsArr = []
         const usedNamesArr = []
-        const reff = this.refs.square0.textContent
-
-        console.log('this ref', reff)
         for (var i = 0; usedNumsArr.length < 16; i++) {
             var newNum;
 
@@ -200,8 +178,8 @@ class BingoBoard extends React.Component {
             this.setState({
                 usedNums: {
                     ...this.state.usedNums, newNum
-                },
-                [reff]: reff
+                }
+
             })
             if (usedNumsArr.indexOf(newNum) === -1) {
                 usedNumsArr.push(newNum);
@@ -217,22 +195,39 @@ class BingoBoard extends React.Component {
             usedNums: [
                 usedNumsArr
             ],
-            sq0: usedNamesArr[0],
-            sq1: usedNamesArr[1],
-            sq2: usedNamesArr[2],
-            sq3: usedNamesArr[3],
-            sq4: usedNamesArr[4],
-            sq5: usedNamesArr[5],
-            sq6: usedNamesArr[6],
-            sq7: usedNamesArr[7],
-            sq8: usedNamesArr[8],
-            sq9: usedNamesArr[9],
-            sq10: usedNamesArr[10],
-            sq11: usedNamesArr[11],
-            sq12: usedNamesArr[12],
-            sq13: usedNamesArr[13],
-            sq14: usedNamesArr[14],
-            sq15: usedNamesArr[15],
+            square1: usedNamesArr[0],
+            square2: usedNamesArr[1],
+            square3: usedNamesArr[2],
+            square4: usedNamesArr[3],
+            square5: usedNamesArr[4],
+            square6: usedNamesArr[5],
+            square7: usedNamesArr[6],
+            square8: usedNamesArr[7],
+            square9: usedNamesArr[8],
+            square10: usedNamesArr[9],
+            square11: usedNamesArr[10],
+            square12: usedNamesArr[11],
+            square13: usedNamesArr[12],
+            square14: usedNamesArr[13],
+            square15: usedNamesArr[14],
+            square16: usedNamesArr[15],
+            winner: false,
+            activesq1: false,
+            activesq2: false,
+            activesq3: false,
+            activesq4: false,
+            activesq5: false,
+            activesq6: false,
+            activesq7: false,
+            activesq8: false,
+            activesq9: false,
+            activesq10: false,
+            activesq11: false,
+            activesq12: false,
+            activesq13: false,
+            activesq14: false,
+            activesq15: false,
+            activesq16: false,
 
         })
 
@@ -240,6 +235,18 @@ class BingoBoard extends React.Component {
 
     getNewNum = () => {
         return Math.floor(Math.random() * 75);
+    }
+
+    onCardSubmit = event => {
+        CardService.create(this.state, this.onCardSubSuccess, this.onCardSubError)
+    }
+
+    onCardSubSuccess = evt => {
+        console.log('we submitted our card', evt)
+    }
+
+    onCardSubError = err => {
+        console.log('card submission error', err)
     }
 
 
@@ -273,22 +280,22 @@ class BingoBoard extends React.Component {
             usedNums: [
                 usedNumsArr
             ],
-            sq0: usedNamesArr[0],
-            sq1: usedNamesArr[1],
-            sq2: usedNamesArr[2],
-            sq3: usedNamesArr[3],
-            sq4: usedNamesArr[4],
-            sq5: usedNamesArr[5],
-            sq6: usedNamesArr[6],
-            sq7: usedNamesArr[7],
-            sq8: usedNamesArr[8],
-            sq9: usedNamesArr[9],
-            sq10: usedNamesArr[10],
-            sq11: usedNamesArr[11],
-            sq12: usedNamesArr[12],
-            sq13: usedNamesArr[13],
-            sq14: usedNamesArr[14],
-            sq15: usedNamesArr[15],
+            square1: usedNamesArr[0],
+            square2: usedNamesArr[1],
+            square3: usedNamesArr[2],
+            square4: usedNamesArr[3],
+            square5: usedNamesArr[4],
+            square6: usedNamesArr[5],
+            square7: usedNamesArr[6],
+            square8: usedNamesArr[7],
+            square9: usedNamesArr[8],
+            square10: usedNamesArr[9],
+            square11: usedNamesArr[10],
+            square12: usedNamesArr[11],
+            square13: usedNamesArr[12],
+            square14: usedNamesArr[13],
+            square15: usedNamesArr[14],
+            square16: usedNamesArr[15],
 
         })
 
@@ -343,35 +350,43 @@ class BingoBoard extends React.Component {
                             <th className='headerCell'>B</th>
                             <th className='headerCell'>A</th>
                             <th className='headerCell'>T</th>
+                            <th className='headerCell'>Z</th>
                         </tr>
                         <tr className='tableRow'>
-                            <td onClick={this.toggleActive1} className={active1} ref='square0' id='square0'>{this.state.sq0}</td>
-                            <td onClick={this.toggleActive2} className={active2} ref='square1' id='square1'>{this.state.sq1}</td>
-                            <td onClick={this.toggleActive3} className={active3} ref='square2' id='square2'>{this.state.sq2}</td>
-                            <td onClick={this.toggleActive4} className={active4} ref='square3' id='square3'>{this.state.sq3}</td>
+                            <td onClick={this.toggleActive1} className={active1} ref='square0' id='square0'>{this.state.square1}</td>
+                            <td onClick={this.toggleActive2} className={active2} ref='square1' id='square1'>{this.state.square2}</td>
+                            <td onClick={this.toggleActive3} className={active3} ref='square2' id='square2'>{this.state.square3}</td>
+                            <td onClick={this.toggleActive4} className={active4} ref='square3' id='square3'>{this.state.square4}</td>
                         </tr>
                         <tr className='tableRow'>
-                            <td onClick={this.toggleActive5} className={active5} ref='square4' id='square4'>{this.state.sq4}</td>
-                            <td onClick={this.toggleActive6} className={active6} ref='square5' id='square5'>{this.state.sq5}</td>
-                            <td onClick={this.toggleActive7} className={active7} ref='square6' id='square6'>{this.state.sq6}</td>
-                            <td onClick={this.toggleActive8} className={active8} ref='square7' id='square7'>{this.state.sq7}</td>
+                            <td onClick={this.toggleActive5} className={active5} ref='square4' id='square4'>{this.state.square5}</td>
+                            <td onClick={this.toggleActive6} className={active6} ref='square5' id='square5'>{this.state.square6}</td>
+                            <td onClick={this.toggleActive7} className={active7} ref='square6' id='square6'>{this.state.square7}</td>
+                            <td onClick={this.toggleActive8} className={active8} ref='square7' id='square7'>{this.state.square8}</td>
                         </tr>
                         <tr className='tableRow'>
-                            <td onClick={this.toggleActive9} className={active9} ref='square8' id='square8'>{this.state.sq8}</td>
-                            <td onClick={this.toggleActive10} className={active10} ref='square9' id='square9'>{this.state.sq9}</td>
-                            <td onClick={this.toggleActive11} className={active11} ref='square10' id='square10'>{this.state.sq10}</td>
-                            <td onClick={this.toggleActive12} className={active12} ref='square11' id='square11'>{this.state.sq11}</td>
+                            <td onClick={this.toggleActive9} className={active9} ref='square8' id='square8'>{this.state.square9}</td>
+                            <td onClick={this.toggleActive10} className={active10} ref='square9' id='square9'>{this.state.square10}</td>
+                            <td onClick={this.toggleActive11} className={active11} ref='square10' id='square10'>{this.state.square11}</td>
+                            <td onClick={this.toggleActive12} className={active12} ref='square11' id='square11'>{this.state.square12}</td>
                         </tr>
                         <tr className='tableRow'>
-                            <td onClick={this.toggleActive13} className={active13} ref='square12' id='square12'>{this.state.sq12}</td>
-                            <td onClick={this.toggleActive14} className={active14} ref='square13' id='square13'>{this.state.sq13}</td>
-                            <td onClick={this.toggleActive15} className={active15} ref='square14' id='square14'>{this.state.sq14}</td>
-                            <td onClick={this.toggleActive16} className={active16} ref='square15' id='square15'>{this.state.sq15}</td>
+                            <td onClick={this.toggleActive13} className={active13} ref='square12' id='square12'>{this.state.square13}</td>
+                            <td onClick={this.toggleActive14} className={active14} ref='square13' id='square13'>{this.state.square14}</td>
+                            <td onClick={this.toggleActive15} className={active15} ref='square14' id='square14'>{this.state.square15}</td>
+                            <td onClick={this.toggleActive16} className={active16} ref='square15' id='square15'>{this.state.square16}</td>
                         </tr>
                     </table>
-                    <button type='button' className='btn btn-primary' onClick={() => this.onCardSubmit()}>Submit My Card</button>
-                    <hr />
-                    <button type='button' className='btn btn-danger' onClick={() => this.anotherCard()}>Refresh My Card</button>
+                    <ul>
+                        <li>
+                            <button type='button' className='btn btn-primary' onClick={() => this.onCardSubmit()}>Submit My Card</button>
+
+                        </li>
+                        <li>
+                            <button type='button' className='btn btn-danger' onClick={() => this.anotherCard()}>Refresh My Card</button>
+
+                        </li>
+                    </ul>
                 </div>
                 <SweetAlert success title="Congratulation!" show={this.state.winner} onConfirm={this.hideAlert}>
                     You won!

@@ -37,7 +37,7 @@
 
 
 body{
-background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsSqTKbOyGdR2vTQddVzNfCsQUYSfBdcZf_wYn6oN0GIC9OBvs'); 
+background-image: url('http://woodsrecruiting.com/wp-content/uploads/2018/11/yakyu.jpg'); 
 -webkit-background-size: cover;
 -moz-background-size: cover;
 -o-background-size: cover;
@@ -157,5 +157,14 @@ th, td {
   color: black;
 }
 
+ul{
+  list-style-type: none;
+
+}
+li{
+  display: inline;
+  padding: 2px;
+
+}
 
         
