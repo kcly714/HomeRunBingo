@@ -1,5 +1,7 @@
 # HomeRunBingo
 
+Baseball Hack Day 2019 - Los Angeles, CA
+
 HomeRunBingo allows anyone to play along everyday of the MLB season and fill out Bingo cards populated with the top Home Run hitters from across the league. When you have a player hit a Home Run, his square on your board is filled. Fill 4 squares in a row and you win!
 
 
